@@ -11,8 +11,8 @@ import (
 
 	"gotemplate/containers"
 
-	"github.com/arkeus/core/log"
 	"github.com/spf13/viper"
+	"github.com/syariatifaris/arkeus/core/log"
 )
 
 func RegistryHttpServer() {
