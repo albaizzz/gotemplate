@@ -1,4 +1,6 @@
 common:
+  app_http: 8123
+  app_port: 8123
   app_name: 'ms_template'
   api_key: ''
   is_debug: false

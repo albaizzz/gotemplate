@@ -1,2 +1,3 @@
 vendor/*
 gotemplate
+__debug_bin

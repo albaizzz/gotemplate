@@ -12,13 +12,12 @@ import (
 	"gotemplate/containers"
 
 	"github.com/spf13/viper"
-	"github.com/syariatifaris/arkeus/core/log"
 )
 
 func RegistryHttpServer() {
 
 	srv := http.Server{
-		Addr:         fmt.Sprintf(":%s", viper.GetString("app.http")),
+		Addr:         fmt.Sprintf(":%s", viper.GetString("common.app_http")),
 		Handler:      containers.RegistryAppServer(),
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 10 * time.Second,
@@ -26,11 +25,11 @@ func RegistryHttpServer() {
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
-			log.Fatal(err.Error())
+			fmt.Println(err.Error())
 		}
 	}()
 
-	log.Info(fmt.Sprintf("starting http server port: %s", viper.GetString("app.port")))
+	fmt.Println(fmt.Sprintf("starting http server port: %s", viper.GetString("common.app_port")))
 
 	quit := make(chan os.Signal)
 
@@ -43,10 +42,10 @@ func RegistryHttpServer() {
 
 	select {
 	case <-ctx.Done():
-		log.Info("server shutdown of 5 second")
+		fmt.Println("server shutdown of 5 second")
 
 	}
 
-	log.Info("server exiting")
+	fmt.Println("server exiting")
 
 }

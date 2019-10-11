@@ -1,10 +1,15 @@
 package cmd
 
 import (
+	"gotemplate/cfg"
 	"gotemplate/cmd/http"
 
 	"github.com/spf13/cobra"
 )
+
+func init() {
+	cobra.OnInitialize(cfg.RegistryConfig)
+}
 
 func RegistryCommand() {
 	cmds := []*cobra.Command{
