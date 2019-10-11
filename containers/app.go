@@ -1,12 +1,62 @@
 package containers
 
 import (
+	"fmt"
+	"gotemplate/context"
+	"gotemplate/internal/consts"
 	"gotemplate/pkg/sqldb"
+
+	"log"
+
+	v1 "gotemplate/internal/api/v1"
+
+	"github.com/syariatifaris/redisc"
+
+	"github.com/gin-gonic/gin"
 )
 
 func RegistryAppServer() *gin.Engine {
 
-	db := sqldb.NewMaria("default")
+	// environ := env.Get(consts.EnvKey)
+	App, err := context.NewAppCtx(consts.EnvDevelopment)
+	dbMaster, err := sqldb.NewMaria(&sqldb.MariaConfig{Host: App.Config.DB.Maria.MasterDB.Host,
+		DBName: App.Config.DB.Maria.MasterDB.Name, Pass: App.Config.DB.Maria.MasterDB.Pass,
+		User: App.Config.DB.Maria.MasterDB.User, Port: App.Config.DB.Maria.MasterDB.Port})
+
+	if err != nil {
+		log.Fatalln("Unable to connect master db")
+	}
+	fmt.Print(dbMaster)
+
+	dbSlave, err := sqldb.NewMaria(&sqldb.MariaConfig{Host: App.Config.DB.Maria.SlaveDB.Host,
+		DBName: App.Config.DB.Maria.SlaveDB.Name, Pass: App.Config.DB.Maria.SlaveDB.Pass,
+		User: App.Config.DB.Maria.SlaveDB.User, Port: App.Config.DB.Maria.SlaveDB.Port})
+
+	if err != nil {
+		log.Fatalln("Unable to connect slave db")
+	}
+
+	fmt.Print(dbSlave)
+
+	//redis
+	redconf := App.Config.DB.Redis
+	rconf := &redisc.Config{
+		Host:               redconf.Host,
+		RetryCount:         redconf.RetryCount,
+		RetryDuration:      redconf.RetryDuration,
+		MaxActive:          redconf.MaxActive,
+		IdleTimeout:        redconf.IdleTimeout,
+		MaxIdle:            redconf.IdleTimeout,
+		DialConnectTimeout: redconf.DialConnectionTimeout,
+	}
+
+	redis, err := redisc.New(rconf)
+	if err != nil {
+		log.Fatalln("unable to connect to redis cluster, err =", err.Error())
+	}
+
+	fmt.Print(redis)
+
 	//cache := bootstrap.RegistryRedis()
 
 	// apm := bootstrap.RegistryTracer("ms_test")
@@ -36,8 +86,7 @@ func RegistryAppServer() *gin.Engine {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 	// router.Use(middlewares.MiddlewareTracer(apm), middlewares.PanicRecovery())
-	// old.RegistryRoute(router, db)
-	// v1.RegistryRoute(router, db)
+	v1.RegistryRoute(router, dbMaster, dbSlave, App)
 
 	return router
 

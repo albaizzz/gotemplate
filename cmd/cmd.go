@@ -8,6 +8,7 @@ import (
 
 func RegistryCommand() {
 	cmds := []*cobra.Command{
+		//put all command to here
 		{
 			Use:   "serve",
 			Short: "Starting http server",

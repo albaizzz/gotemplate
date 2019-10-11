@@ -1,6 +1,7 @@
 package context
 
-// import (
+import config "gotemplate/cfg"
+
 // 	"bytes"
 // 	"errors"
 // 	"fmt"
@@ -8,7 +9,6 @@ package context
 // 	"encoding/json"
 // 	"net/http"
 
-// 	config "bitbucket.org/kudoindonesia/ovo_payments/cfg"
 // 	"bitbucket.org/kudoindonesia/ovo_payments/internal/apicall"
 // 	"bitbucket.org/kudoindonesia/ovo_payments/internal/cache"
 // 	consts "bitbucket.org/kudoindonesia/ovo_payments/internal/const"
@@ -17,12 +17,11 @@ package context
 
 // 	perrors "github.com/pkg/errors"
 // 	"github.com/syariatifaris/arkeus/core/net"
-// )
 
-// //AppContext the context for application
-// type AppContext struct {
-// 	Config *config.Configuration
-// }
+//AppContext the context for application
+type AppContext struct {
+	Config *config.Configuration
+}
 
 // //UIContext the context for UI compoenent
 // type UIContext struct {

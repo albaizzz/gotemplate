@@ -1,7 +1,13 @@
 package consts
 
+import (
+	"fmt"
+
+	"bitbucket.org/kudoindonesia/kma_graphql/pkg/env"
+)
+
 //Pkg default package name
-// const Pkg = "bitbucket.org/kudoindonesia/ovo_payments"
+const Pkg = "gotemplate"
 
 //Region environment constant
 const (
@@ -16,10 +22,10 @@ const (
 )
 
 //FilesDevelPaths collection of possible file location
-// var FilesDevelPaths = []string{
-// 	"./files/",
-// 	fmt.Sprintf("%s/src/%s/files/", env.Get("GOPATH"), Pkg),
-// }
+var FilesDevelPaths = []string{
+	"./files/",
+	fmt.Sprintf("%s/src/%s/files/", env.Get("GOPATH"), Pkg),
+}
 
 //Region static files
 const (

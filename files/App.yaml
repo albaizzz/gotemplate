@@ -1,0 +1,26 @@
+common:
+  app_name: 'ms_template'
+  api_key: ''
+  is_debug: false
+  use_new_relic: false
+  use_datadog: false
+  use_senstry: false
+  use_sentry_dsn: false
+  is_maintenance: false
+  timezone: 'UTC+7'
+  lang: 'en-US'
+  environment: 'development'
+db:
+  maria:
+    master_db:
+      name: 'db.name'
+      user: 'db.user'
+      host: 'db.host'
+      port: 3306
+      pass: 'db.pass'
+    slave_db:
+      name: 'db.name'
+      user: 'db.user'
+      host: 'db.host'
+      port: 3306
+      pass: 'db.pass'

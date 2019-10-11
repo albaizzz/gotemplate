@@ -1,10 +1,9 @@
-package config
+package cfg
 
 //Configuration structure
 type Configuration struct {
 	Common         *Common         `yaml:"common"`
-	MasterDB       *Database       `yaml:"master_db"`
-	SlaveDB        *Database       `yaml:"slave_db"`
+	DB             *DB             `yaml:"db"`
 	Breaker        *Breaker        `yaml:"breaker"`
 	AWS            *AWS            `yaml:"aws"`
 	Country        *Country        `yaml:"country"`
@@ -14,7 +13,27 @@ type Configuration struct {
 	Kafka          *Kafka          `yaml:"kafka"`
 	PartnerWallet  *PartnerWallet  `yaml:"partner_wallet"`
 	CircuitBreaker *CircuitBreaker `yaml:"circuit_breaker"`
-	RedisCluter    *RedisCluter    `yaml:"redis_cluster"`
+}
+
+type DB struct {
+	Maria *Maria       `yaml:"maria"`
+	Redis *RedisCluter `yaml:"redis_cluster"`
+}
+
+//RedisCluter configuration
+type RedisCluter struct {
+	Host                  string `yaml:"host"`
+	RetryCount            int    `yaml:"retry_count"`
+	RetryDuration         int    `yaml:"retry_duration"`
+	MaxActive             int    `yaml:"max_active"`
+	MaxIdle               int    `yaml:"max_idle"`
+	IdleTimeout           int    `yaml:"idle_timeout"`
+	DialConnectionTimeout int    `yaml:"dial_connection_timeout"`
+}
+
+type Maria struct {
+	MasterDB *Database `yaml:"master_db"`
+	SlaveDB  *Database `yaml:"slave_db"`
 }
 
 //Common structure
@@ -105,15 +124,4 @@ type CircuitBreaker struct {
 	MaxConcurrency           int `yaml:"max_concurrency"`
 	ErrorPercentageThreshold int `yaml:"error_threshold"`
 	TimeoutSecond            int `yaml:"timeout_second"`
-}
-
-//RedisCluter configuration
-type RedisCluter struct {
-	Host                  string `yaml:"host"`
-	RetryCount            int    `yaml:"retry_count"`
-	RetryDuration         int    `yaml:"retry_duration"`
-	MaxActive             int    `yaml:"max_active"`
-	MaxIdle               int    `yaml:"max_idle"`
-	IdleTimeout           int    `yaml:"idle_timeout"`
-	DialConnectionTimeout int    `yaml:"dial_connection_timeout"`
 }
