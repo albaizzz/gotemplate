@@ -19,15 +19,16 @@ import (
 func RegistryAppServer() *gin.Engine {
 
 	envi := env.Get(consts.EnvKey)
+	//Init Application configuration Context
 	App, err := context.NewAppCtx(envi)
+	//init DB Master
 	dbMaster, err := sqldb.NewMaria(&sqldb.MariaConfig{Host: App.Config.DB.Maria.MasterDB.Host,
 		DBName: App.Config.DB.Maria.MasterDB.Name, Pass: App.Config.DB.Maria.MasterDB.Pass,
 		User: App.Config.DB.Maria.MasterDB.User, Port: App.Config.DB.Maria.MasterDB.Port})
-
 	if err != nil {
 		log.Fatalln("Unable to connect master db")
 	}
-
+	//Init DB Slave
 	dbSlave, err := sqldb.NewMaria(&sqldb.MariaConfig{Host: App.Config.DB.Maria.SlaveDB.Host,
 		DBName: App.Config.DB.Maria.SlaveDB.Name, Pass: App.Config.DB.Maria.SlaveDB.Pass,
 		User: App.Config.DB.Maria.SlaveDB.User, Port: App.Config.DB.Maria.SlaveDB.Port})
@@ -36,7 +37,7 @@ func RegistryAppServer() *gin.Engine {
 		log.Fatalln("Unable to connect slave db")
 	}
 
-	//redis
+	//redis cluster
 	redconf := App.Config.DB.Redis
 	rconf := &redisc.Config{
 		Host:               redconf.Host,
@@ -52,7 +53,6 @@ func RegistryAppServer() *gin.Engine {
 	if err != nil {
 		log.Fatalln("unable to connect to redis cluster, err =", err.Error())
 	}
-
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
 	v1.RegistryRoute(router, dbMaster, dbSlave, redisc, App)

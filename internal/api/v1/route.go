@@ -3,6 +3,9 @@ package v1
 import (
 	"gotemplate/context"
 	"gotemplate/internal/api/v1/handlers"
+	"gotemplate/internal/db"
+	"gotemplate/internal/middleware"
+	"gotemplate/internal/svc"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
@@ -11,6 +14,18 @@ import (
 
 // RegistryRoute old api version support
 func RegistryRoute(router gin.IRouter, dbMaster *sqlx.DB, dbSlave *sqlx.DB, redis redisc.Redis, app *context.AppContext) {
+
+	userDB := db.NewUserDb(dbMaster, dbSlave)
+	usersvc := svc.NewUserSvc(userDB)
+	userHandler := handlers.NewUserHandler(usersvc)
+
+	v1 := router.Group("ms/v1")
+
+	v1.GET("/users/:user", userHandler.Get)
+	v1.POST("/users", userHandler.Save)
+
 	health := handlers.NewHealthCheck()
-	router.GET("/health/check", health.Info)
+	test := router.Group("/")
+	test.Use(middleware.AuthProcess())
+	test.GET("/health/check", health.Info)
 }

@@ -56,13 +56,3 @@ const (
 	//RunTimeMQ indicator for MQ Runtime
 	RunTimeMQ = "MQ"
 )
-
-const (
-	APISuccessCode          = 1000
-	APIUnknownCode          = 2000
-	APINotFoundCode         = 1002
-	APIConflictCode         = 1003
-	APIInvalidParameterCode = 2005
-	APITopupSuccess         = 1000
-	APIMaintenanceCode      = 1001
-)
