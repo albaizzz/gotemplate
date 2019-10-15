@@ -1,6 +1,7 @@
 package containers
 
 import (
+	"fmt"
 	"gotemplate/context"
 	"gotemplate/internal/consts"
 	"gotemplate/pkg/log"
@@ -33,7 +34,7 @@ func RegistryAppServer() *gin.Engine {
 		User: App.Config.DB.Maria.SlaveDB.User, Port: App.Config.DB.Maria.SlaveDB.Port})
 
 	if err != nil {
-		// log.Fatalf("Unable to connect slave db")
+		log.Fatal("Unable to connect slave db")
 	}
 
 	//redis cluster
@@ -50,7 +51,7 @@ func RegistryAppServer() *gin.Engine {
 
 	redisc, err := redisc.New(rconf)
 	if err != nil {
-		// log.Fatalf("unable to connect to redis cluster, err =", err.Error())
+		log.Fatal(fmt.Sprintf("unable to connect to redis cluster, err =", err.Error()))
 	}
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.New()
