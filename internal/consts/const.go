@@ -2,8 +2,7 @@ package consts
 
 import (
 	"fmt"
-
-	"bitbucket.org/kudoindonesia/kma_graphql/pkg/env"
+	"gotemplate/pkg/env"
 )
 
 //Pkg default package name

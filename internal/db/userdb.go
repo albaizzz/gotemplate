@@ -39,7 +39,7 @@ func (u *userdb) Save(ctx context.Context, tx *sqlx.Tx, user models.User) error 
 
 func (u *userdb) GetByUsername(ctx context.Context, username string) (*models.User, error) {
 	var user models.User
-	qry := `select id, name, username, email, phone from users where username = ?`
+	qry := `select id, name, username, email, phone, created_at, updated_at from users where username = ?`
 	err := u.slave.GetContext(ctx, &user, qry, username)
 	return &user, err
 }
