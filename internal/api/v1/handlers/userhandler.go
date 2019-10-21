@@ -34,3 +34,11 @@ func (u *UserHandler) Save(ctx *gin.Context) {
 	helpers.APIResponse(ctx, res)
 	return
 }
+
+func (u *UserHandler) Auth(ctx *gin.Context) {
+	var user models.User
+	ctx.BindJSON(&user)
+	res := u.userSvc.AuthUser(ctx.Request.Context(), user)
+	helpers.APIResponse(ctx, res)
+	return
+}

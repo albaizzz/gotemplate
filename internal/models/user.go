@@ -10,8 +10,9 @@ type Base struct {
 
 type User struct {
 	*Base
-	Name     string `json:"name"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
+	Name     string `json:"name" db:"name"`
+	Password string `json:"password, omitempty"`
+	Username string `json:"username" `
+	Email    string `json:"email" `
 	Phone    string `json:"phone"`
 }

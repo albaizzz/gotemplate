@@ -17,6 +17,7 @@ type Configuration struct {
 
 type DB struct {
 	Maria *Maria       `yaml:"maria"`
+	Mssql *Mssql       `yaml:"mssql"`
 	Redis *RedisCluter `yaml:"redis_cluster"`
 }
 
@@ -34,6 +35,10 @@ type RedisCluter struct {
 type Maria struct {
 	MasterDB *Database `yaml:"master_db"`
 	SlaveDB  *Database `yaml:"slave_db"`
+}
+
+type Mssql struct {
+	MasterDB *Database `yaml:"master_db"`
 }
 
 //Common structure

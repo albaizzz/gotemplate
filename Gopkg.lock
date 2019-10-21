@@ -2,6 +2,19 @@
 
 
 [[projects]]
+  branch = "master"
+  digest = "1:604736820765267566a4add60d6d656fda085f1d01fc134eb09bbf648da8d902"
+  name = "github.com/denisenkom/go-mssqldb"
+  packages = [
+    ".",
+    "internal/cp",
+    "internal/decimal",
+    "internal/querytext",
+  ]
+  pruneopts = "UT"
+  revision = "cfbb681360f0a7de54ae77703318f0e60d422e00"
+
+[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
@@ -31,6 +44,20 @@
   version = "v1.4.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:78102ee4d536347316bc42e818340cc50902e45dbd7fdd524c5a1fc0cb07b588"
+  name = "github.com/globalsign/mgo"
+  packages = [
+    ".",
+    "bson",
+    "internal/json",
+    "internal/sasl",
+    "internal/scram",
+  ]
+  pruneopts = "UT"
+  revision = "eeefdecb41b842af6dc652aaea4026e8403e62df"
+
+[[projects]]
   digest = "1:f3823e42633fcdc3fcbde7e69e9786a3749c42747c6c1f62ad2bd26bc297e2fd"
   name = "github.com/go-redsync/redsync"
   packages = ["."]
@@ -45,6 +72,14 @@
   pruneopts = "UT"
   revision = "72cd26f257d44c1114970e19afddcd812016007e"
   version = "v1.4.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:914bae0d7af57d7f9c2c8eff864071e57c3effebd78eeef26eff4afb0372ed2f"
+  name = "github.com/golang-sql/civil"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "cb61b32ac6fe84d34b81730175f91965e43d0f90"
 
 [[projects]]
   digest = "1:fe8273f3c5693e536bbe05d92ab8d05a70fa5806d2d90510bb0d5106c140cc2c"
@@ -281,6 +316,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:100a36e16f77aaad7c9144ab26bcefb92c5b6ebed5b137f935fdc11f541fa5b8"
+  name = "golang.org/x/crypto"
+  packages = ["md4"]
+  pruneopts = "UT"
+  revision = "87dc89f01550277dc22b74ffcf4cd89fa2f40f4c"
+
+[[projects]]
+  branch = "master"
   digest = "1:c124e945335a9c62ede3a565f3198c5ae9a5ecc39fddd85871138362d128fb74"
   name = "golang.org/x/net"
   packages = [
@@ -297,12 +340,9 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:8465bc3baa8f05fb83a10b7a9029f90ecdf065957e6fb8ff4d75a0e5072f4148"
+  digest = "1:7c927f17d868be652a4cfe7de23e4292dea5b14d974a1d536e3b7cb7e79fd695"
   name = "golang.org/x/sys"
-  packages = [
-    "unix",
-    "windows",
-  ]
+  packages = ["unix"]
   pruneopts = "UT"
   revision = "06d7bd2c5f4f4a6cc6e910b611851044253bd7d1"
 
@@ -399,14 +439,6 @@
   version = "v8.18.2"
 
 [[projects]]
-  digest = "1:c805e517269b0ba4c21ded5836019ed7d16953d4026cb7d00041d039c7906be9"
-  name = "gopkg.in/natefinch/lumberjack.v2"
-  packages = ["."]
-  pruneopts = "UT"
-  revision = "a96e63847dc3c67d17befa69c303767e2f84e54f"
-  version = "v2.1"
-
-[[projects]]
   digest = "1:59f10c1537d2199d9115d946927fe31165959a95190849c82ff11e05803528b0"
   name = "gopkg.in/yaml.v2"
   packages = ["."]
@@ -418,7 +450,9 @@
   analyzer-name = "dep"
   analyzer-version = 1
   input-imports = [
+    "github.com/denisenkom/go-mssqldb",
     "github.com/gin-gonic/gin",
+    "github.com/globalsign/mgo",
     "github.com/go-sql-driver/mysql",
     "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/ptypes/empty",
@@ -432,7 +466,6 @@
     "golang.org/x/net/context",
     "google.golang.org/grpc",
     "google.golang.org/grpc/health/grpc_health_v1",
-    "gopkg.in/natefinch/lumberjack.v2",
     "gopkg.in/yaml.v2",
   ]
   solver-name = "gps-cdcl"

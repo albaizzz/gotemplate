@@ -19,10 +19,11 @@ func RegistryRoute(router gin.IRouter, dbMaster *sqlx.DB, dbSlave *sqlx.DB, redi
 	usersvc := svc.NewUserSvc(userDB)
 	userHandler := handlers.NewUserHandler(usersvc)
 
-	v1 := router.Group("ms/v1")
+	v1 := router.Group("scmlite/v1")
 
 	v1.GET("/users/:user", userHandler.Get)
 	v1.POST("/users", userHandler.Save)
+	v1.POST("/users/auth", userHandler.Auth)
 
 	health := handlers.NewHealthCheck()
 	test := router.Group("/")
